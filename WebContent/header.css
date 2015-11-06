@@ -1,0 +1,75 @@
+@CHARSET "ISO-8859-1";
+
+* {
+	margin:  0;
+	padding: 0;
+}
+
+body {
+	background-color: #EFEFEF;
+	font-family: sans-serif;
+}
+
+header {
+	height: 100px;
+	display: block;
+	background: #B8312F;
+}
+
+header h1 {
+	position: absolute;
+	left: 100px;
+	top: 32px;
+	color: white;
+}
+
+header form {
+	position: absolute;
+	right: 100px;
+	top: 25px;
+}
+
+header form input[type = "search"] {
+	padding: 5px 0;
+}
+
+header form label {
+	color: white;
+}
+
+header form label, header form input[type = "checkbox"] {
+	margin-top: 4px;
+}
+
+header form button {
+	padding: 5px 50px; 
+	border: 1px solid #FAC51C;
+	color: white;
+	background-color: #FAC51C;
+}
+
+nav {
+	background-color: #F37934;
+}
+
+nav ul {
+	padding: 10px 0;
+}
+
+nav ul li {
+	margin: 0px 30px;
+	display: inline;
+}
+
+header a, nav a {
+	color: white;
+}
+
+.container {
+	margin: 0 auto;
+	width: 80%;
+}
+
+a {
+	text-decoration: none;
+}

@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+
+ol {
+	list-style: none;
+}
+
+article {
+	position: relative;
+	padding-bottom: 50px;
+	border-bottom: 2px dashed white;
+	margin: 10px 0;
+}
+
+article p:first-child {
+	display: inline-block;
+	background: #2969B0;
+	border: 1px solid #2969B0;
+	padding: 10px;
+	color: white;
+	margin: 1px;
+}
+
+article > a {
+	right: 0;
+	position: absolute;
+	background: #FAC51C;
+	border: 1px solid #FAC51C;
+	padding: 10px 50px;
+	box-sizing: border-box;
+	color: white;
+}

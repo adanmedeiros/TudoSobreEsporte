@@ -1,12 +1,7 @@
 package br.com.tudosobreesporte.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,27 +14,21 @@ import br.com.tudosobreesporte.jdbc.dao.PostsDao;
 import br.com.tudosobreesporte.jdbc.posts.Posts;
 
 @SuppressWarnings("serial")
-@WebServlet("/adicionaPost")
-public class AdicionaPostServlet extends HttpServlet {
+@WebServlet("/removePost")
+public class RemovePostServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Connection connection = (Connection) req.getAttribute("connection");
-		PrintWriter out = resp.getWriter();
 
-		String titulo = req.getParameter("titulo");
-		String conteudo = req.getParameter("conteudo");
-		String tags = req.getParameter("tags");
+		int id = Integer.parseInt(req.getParameter("id"));
 
 		Posts post = new Posts();
-		post.setData(Calendar.getInstance());
-		post.setTitulo(titulo);
-		post.setConteudo(conteudo);
-		post.setTags(tags);
+		post.setId(id);
 
 		PostsDao dao = new PostsDao(connection);
-		dao.adiciona(post);
+		dao.remove(post.getId());
 
-		RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/posts.jsp");
 		rd.forward(req, resp);
 	}
 }

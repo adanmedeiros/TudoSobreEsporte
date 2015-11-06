@@ -1,0 +1,44 @@
+@CHARSET "ISO-8859-1";
+
+table {
+	margin: 10px auto 0;
+}
+
+table tr:nth-child(even) {
+	background-color: #ccc;
+}
+
+table tr td:first-child {
+	min-width: 200px;
+}
+
+table tr td:last-child {
+	width: 100px;
+}
+
+body > form {
+	width: 400px;
+	margin: 50px auto 0;
+	padding: 20px;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.25);
+}
+
+body > form label {
+	text-align: right;
+	vertical-align: middle;
+}
+
+body > form input, body > form textarea {
+	border: 0; !important
+	border-radius: 5px;
+	box-shadow: none;
+	padding: 5px;
+}
+
+body > form button {
+	background-color: #FAC51C;
+	color: white;
+	border: 1px solid #FAC51C;
+	padding: 5px 50px; 
+}

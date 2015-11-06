@@ -11,20 +11,20 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.tudosobreesporte.jdbc.ConnectionFactory;
-import br.com.tudosobreesporte.jdbc.posts.Posts;
+import br.com.tudosobreesporte.jdbc.posts.Post;
 
-public class PostsDao {
+public class PostDao {
 	private Connection connection;
 
-	public PostsDao(Connection connection) {
+	public PostDao(Connection connection) {
 		this.connection = connection;
 	}
 
-	public PostsDao() {
+	public PostDao() {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public void adiciona (Posts post) {
+	public void adiciona (Post post) {
 		String sql = "insert into posts " + "(data_hora, titulo, conteudo, tags)" + " values (?, ?, ?, ?)";
 
 		try {
@@ -52,14 +52,14 @@ public class PostsDao {
 		}
 	}
 
-	public List<Posts> getLista() {
+	public List<Post> getLista() {
 		try {
-			List<Posts> posts = new ArrayList<Posts>();
+			List<Post> posts = new ArrayList<Post>();
 			PreparedStatement stmt = this.connection.prepareStatement("select * from posts");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Posts post = new Posts();
+				Post post = new Post();
 
 				post.setId(rs.getInt("id"));
 
@@ -82,16 +82,16 @@ public class PostsDao {
 		}
 	}
 
-	public List<Posts> getListaFiltrada(String filtro) {
+	public List<Post> getListaFiltrada(String filtro) {
 		try {
-			List<Posts> posts = new ArrayList<Posts>();
+			List<Post> posts = new ArrayList<Post>();
 			PreparedStatement stmt = this.connection.prepareStatement("select * from posts where tags like ?");
 			stmt.setString(1, "%" + filtro + "%");
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Posts post = new Posts();
+				Post post = new Post();
 
 				post.setId(rs.getInt("id"));
 

@@ -2,10 +2,10 @@
 		<ol class = "container">
 			<li>
 				<%
-				PostsDao pdao = new PostsDao();
-				List<Posts> posts = pdao.getListaFiltrada(request.getParameter("tags"));
+				PostDao pdao = new PostDao();
+				List<Post> posts = pdao.getListaFiltrada(request.getParameter("tags"));
 
-				for (Posts post : posts) {
+				for (Post post : posts) {
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 					String dataFormatada = sdf.format(post.getData().getTime());
 				%>

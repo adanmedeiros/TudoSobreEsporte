@@ -3,16 +3,16 @@ package br.com.tudosobreesporte.jdbc.teste;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import br.com.tudosobreesporte.jdbc.dao.PostsDao;
-import br.com.tudosobreesporte.jdbc.posts.Posts;
+import br.com.tudosobreesporte.jdbc.dao.PostDao;
+import br.com.tudosobreesporte.jdbc.posts.Post;
 
 public class ListaFiltradaTest {
 	public static void main(String[] args) {
-		PostsDao dao = new PostsDao();
+		PostDao dao = new PostDao();
 
-		List<Posts> posts = dao.getListaFiltrada("Volei");
+		List<Post> posts = dao.getListaFiltrada("Volei");
 
-		for (Posts post : posts) {
+		for (Post post : posts) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			String dataFormatada = sdf.format(post.getData().getTime());
 

@@ -2,16 +2,16 @@ package br.com.tudosobreesporte.jdbc.teste;
 
 import java.util.List;
 
-import br.com.tudosobreesporte.jdbc.dao.PostsDao;
-import br.com.tudosobreesporte.jdbc.posts.Posts;
+import br.com.tudosobreesporte.jdbc.dao.PostDao;
+import br.com.tudosobreesporte.jdbc.posts.Post;
 
 public class RemoveTest {
 	public static void main(String[] args) {
-		PostsDao dao = new PostsDao();
+		PostDao dao = new PostDao();
 
-		List<Posts> posts = dao.getLista();
+		List<Post> posts = dao.getLista();
 
-		for (Posts post : posts) {
+		for (Post post : posts) {
 			dao.remove(post.getId());
 		}
 	}

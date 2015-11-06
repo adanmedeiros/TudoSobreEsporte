@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.tudosobreesporte.jdbc.dao.PostsDao;
-import br.com.tudosobreesporte.jdbc.posts.Posts;
+import br.com.tudosobreesporte.jdbc.dao.PostDao;
+import br.com.tudosobreesporte.jdbc.posts.Post;
 
 @SuppressWarnings("serial")
 @WebServlet("/removePost")
@@ -22,10 +22,10 @@ public class RemovePostServlet extends HttpServlet {
 
 		int id = Integer.parseInt(req.getParameter("id"));
 
-		Posts post = new Posts();
+		Post post = new Post();
 		post.setId(id);
 
-		PostsDao dao = new PostsDao(connection);
+		PostDao dao = new PostDao(connection);
 		dao.remove(post.getId());
 
 		RequestDispatcher rd = req.getRequestDispatcher("/posts.jsp");

@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.tudosobreesporte.jdbc.dao.PostsDao;
-import br.com.tudosobreesporte.jdbc.posts.Posts;
+import br.com.tudosobreesporte.jdbc.dao.PostDao;
+import br.com.tudosobreesporte.jdbc.posts.Post;
 
 @SuppressWarnings("serial")
 @WebServlet("/adicionaPost")
@@ -30,13 +30,13 @@ public class AdicionaPostServlet extends HttpServlet {
 		String conteudo = req.getParameter("conteudo");
 		String tags = req.getParameter("tags");
 
-		Posts post = new Posts();
+		Post post = new Post();
 		post.setData(Calendar.getInstance());
 		post.setTitulo(titulo);
 		post.setConteudo(conteudo);
 		post.setTags(tags);
 
-		PostsDao dao = new PostsDao(connection);
+		PostDao dao = new PostDao(connection);
 		dao.adiciona(post);
 
 		RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");

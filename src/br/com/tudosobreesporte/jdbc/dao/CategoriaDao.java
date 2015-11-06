@@ -11,7 +11,7 @@ import java.util.List;
 
 import br.com.tudosobreesporte.jdbc.ConnectionFactory;
 import br.com.tudosobreesporte.jdbc.modelo.Categoria;
-import br.com.tudosobreesporte.jdbc.posts.Posts;
+import br.com.tudosobreesporte.jdbc.posts.Post;
 
 public class CategoriaDao {
 	private Connection connection;

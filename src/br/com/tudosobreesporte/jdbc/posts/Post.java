@@ -2,7 +2,7 @@ package br.com.tudosobreesporte.jdbc.posts;
 
 import java.util.Calendar;
 
-public class Posts {
+public class Post {
 	private int id;
 	private Calendar data;
 	private String titulo;

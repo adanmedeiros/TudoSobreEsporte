@@ -1,10 +1,10 @@
 <%@ include file = "header.jsp" %>
 		<table>
 			<%
-			PostsDao pdao = new PostsDao();
-			List<Posts> posts = pdao.getLista();
+			PostDao pdao = new PostDao();
+			List<Post> posts = pdao.getLista();
 
-			for (Posts post : posts) {
+			for (Post post : posts) {
 			%>
 
 			<tr>

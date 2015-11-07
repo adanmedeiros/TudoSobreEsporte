@@ -114,4 +114,37 @@ public class PostDao {
 			throw new RuntimeException (e);
 		}
 	}
+
+	public List<Post> getPost(int id) {
+		try {
+			List<Post> posts = new ArrayList<Post>();
+			PreparedStatement stmt = this.connection.prepareStatement("select * from posts where id=" + id);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Post post = new Post();
+
+				post.setId(rs.getInt("id"));
+
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("data_hora"));
+				post.setData(data);
+
+				post.setTitulo(rs.getString("titulo"));
+				post.setConteudo(rs.getString("conteudo"));
+				post.setTags(rs.getString("tags"));
+
+				posts.add(post);
+			}
+			rs.close();
+			stmt.close();
+
+			return posts;
+		
+		} catch (SQLException e) {
+			throw new RuntimeException (e);
+		}
+	}
+
 }

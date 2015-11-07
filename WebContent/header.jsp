@@ -7,6 +7,8 @@
 
 <%@ page language = "java" contentType = "text/html; charset = ISO-8859-1" pageEncoding = "ISO-8859-1"%>
 
+<%@ taglib  prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -35,15 +37,9 @@
 
 		<nav>
 			<ul class = "container">
-				<%
-				CategoriaDao cdao = new CategoriaDao();
-				List<Categoria> categorias = cdao.getLista();
-
-				for (Categoria categoria : categorias) {
-				%>
-
-				<li><a href = "filtro?tags=<%= categoria.getNome() %>"><%= categoria.getNome() %></a></li>
-
-				<% } %>
+				<jsp:useBean id = "cdao" class = "br.com.tudosobreesporte.jdbc.dao.CategoriaDao" />
+				<c:forEach var = "categoria" items = ${cdao.lista} >
+					<li><a href = "filtro?tags=${categoria.nome}">${categoria.nome}</a></li>
+				</c:forEach>
 			</ul>
 		</nav>

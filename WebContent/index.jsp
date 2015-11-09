@@ -2,7 +2,7 @@
 		<ol class = "container">
 			<li>
 				<jsp:useBean id = "pdao" class = "br.com.tudosobreesporte.jdbc.dao.PostDao" />
-				<c:forEach var = "post" items = ${pdao.lista} >
+				<c:forEach var = "post" items = "${pdao.lista}" >
 					<%
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 

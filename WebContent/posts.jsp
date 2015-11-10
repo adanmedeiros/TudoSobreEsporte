@@ -2,7 +2,7 @@
 		<table>
 			<jsp:useBean id = "pdao" class = "br.com.tudosobreesporte.jdbc.dao.PostDao" />
 
-			<c:forEach var = "post" items = ${pdao.list} >
+			<c:forEach var = "post" items = "${pdao.lista}" >
 				<tr>
 					<td>${post.titulo}</td>
 					<td><a href = "removePost?id=${post.id}">Excluir</a></td>

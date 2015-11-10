@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 		<table>
-			<c:forEach var = "categoria" items = ${cdao.lista} >
+			<c:forEach var = "categoria" items = "${cdao.lista}" >
 				<tr>
 					<td>${categoria.nome}</td>
 					<td><a href = "removeCategoria?categoria=${categoria.nome}">Excluir</a></td>

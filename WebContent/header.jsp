@@ -1,9 +1,9 @@
 <%@ page import = "java.util.List"%>
 <%@ page import = "java.text.SimpleDateFormat" %>
-<%@ page import = "br.com.tudosobreesporte.jdbc.*" %>
-<%@ page import = "br.com.tudosobreesporte.jdbc.dao.*" %>
-<%@ page import = "br.com.tudosobreesporte.jdbc.posts.*" %>
-<%@ page import = "br.com.tudosobreesporte.jdbc.modelo.*"%>
+<%@ page import = "br.com.caelum.tudosobreesporte.dao.*" %>
+<%@ page import = "br.com.caelum.tudosobreesporte.model.*" %>
+<%@ page import = "br.com.caelum.tudosobreesporte.servlet.*" %>
+<%@ page import = "br.com.caelum.tudosobreesporte.converter.*" %>
 
 <%@ page language = "java" contentType = "text/html; charset = ISO-8859-1" pageEncoding = "ISO-8859-1"%>
 
@@ -38,7 +38,7 @@
 
 		<nav>
 			<ul class = "container">
-				<jsp:useBean id = "cdao" class = "br.com.tudosobreesporte.jdbc.dao.CategoriaDao" />
+				<jsp:useBean id = "cdao" class = "br.com.caelum.tudosobreesporte.dao.CategoriaDao" />
 				<c:forEach var = "categoria" items = "${cdao.lista}" >
 					<li><a href = "filtro?tags=${categoria.nome}">${categoria.nome}</a></li>
 				</c:forEach>

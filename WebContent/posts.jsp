@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 		<table>
-			<jsp:useBean id = "pdao" class = "br.com.tudosobreesporte.jdbc.dao.PostDao" />
+			<jsp:useBean id = "pdao" class = "br.com.caelum.tudosobreesporte.dao.PostDao" />
 
 			<c:forEach var = "post" items = "${pdao.lista}" >
 				<tr>
@@ -12,9 +12,6 @@
 
 		<form action = "adicionaPost" method = "POST">
 			<h1>Novo Post</h1> <br />
-
-			<label for = "data">Data/Hora: </label>
-			<input type = "text" name = "data" placeholder = "Hora atual atualizada" disabled /> <br /> <br />
 
 			<label for = "titulo">Título: </label>
 			<input type = "text" name = "titulo" placeholder = "Título do post" required /> <br /> <br />

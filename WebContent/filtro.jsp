@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 		<ol class = "container">
-			<jsp:useBean id = "pdao" class = "br.com.tudosobreesporte.jdbc.dao.PostDao" />
+			<jsp:useBean id = "pdao" class = "br.com.caelum.tudosobreesporte.dao.PostDao" />
 			<c:forEach var = "post" items = "${pdao.getListaFiltrada(param.tags)}" >
 				<li>
 					<article>

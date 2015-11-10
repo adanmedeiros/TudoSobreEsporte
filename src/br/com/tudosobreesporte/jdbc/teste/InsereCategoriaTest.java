@@ -2,8 +2,8 @@ package br.com.tudosobreesporte.jdbc.teste;
 
 import java.sql.Connection;
 
-import br.com.tudosobreesporte.jdbc.dao.CategoriaDao;
-import br.com.tudosobreesporte.jdbc.modelo.Categoria;
+import br.com.caelum.tudosobreesporte.dao.CategoriaDao;
+import br.com.caelum.tudosobreesporte.model.Categoria;
 
 public class InsereCategoriaTest {
 	public static void main(String[] args) {

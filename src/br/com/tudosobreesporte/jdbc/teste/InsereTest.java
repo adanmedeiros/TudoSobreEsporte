@@ -2,8 +2,8 @@ package br.com.tudosobreesporte.jdbc.teste;
 
 import java.util.Calendar;
 
-import br.com.tudosobreesporte.jdbc.dao.PostDao;
-import br.com.tudosobreesporte.jdbc.posts.Post;
+import br.com.caelum.tudosobreesporte.dao.PostDao;
+import br.com.caelum.tudosobreesporte.model.Post;
 
 public class InsereTest {
 	public static void main(String[] args) {

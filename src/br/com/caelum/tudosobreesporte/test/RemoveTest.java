@@ -1,4 +1,4 @@
-package br.com.tudosobreesporte.jdbc.teste;
+package br.com.caelum.tudosobreesporte.test;
 
 import java.util.List;
 

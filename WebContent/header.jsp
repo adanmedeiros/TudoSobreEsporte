@@ -38,8 +38,7 @@
 
 		<nav>
 			<ul class = "container">
-				<jsp:useBean id = "cdao" class = "br.com.caelum.tudosobreesporte.dao.CategoriaDao" />
-				<c:forEach var = "categoria" items = "${cdao.lista}" >
+				<c:forEach var = "categoria" items = "${CategoriaDao.lista}" >
 					<li><a href = "filtro?tags=${categoria.nome}">${categoria.nome}</a></li>
 				</c:forEach>
 			</ul>

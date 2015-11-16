@@ -16,5 +16,8 @@
 
 			<button type = "submit">Adicionar</button>
 		</form>
+
+		<script src = "jQuery.js"></script>
+		<script src = "custom.js"></script>
 	</body>
 </html>

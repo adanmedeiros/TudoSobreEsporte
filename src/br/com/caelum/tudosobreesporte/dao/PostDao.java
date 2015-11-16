@@ -30,7 +30,7 @@ public class PostDao {
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setTimestamp(1, new Timestamp(post.getData().getTimeInMillis()));
+			stmt.setTimestamp(1, new Timestamp(Calendar.getInstance().getTimeInMillis()));
 			stmt.setString(2, post.getTitulo());
 			stmt.setString(3, post.getConteudo());
 			stmt.setString(4, post.getTags());
@@ -96,7 +96,7 @@ public class PostDao {
 				post.setId(rs.getInt("id"));
 
 				Calendar data = Calendar.getInstance();
-				data.setTime(rs.getDate("data_hora"));
+				data.setTime(rs.getTimestamp("data_hora"));
 				post.setData(data);
 
 				post.setTitulo(rs.getString("titulo"));
@@ -128,7 +128,7 @@ public class PostDao {
 				post.setId(rs.getInt("id"));
 
 				Calendar data = Calendar.getInstance();
-				data.setTime(rs.getDate("data_hora"));
+				data.setTime(rs.getTimestamp("data_hora"));
 				post.setData(data);
 
 				post.setTitulo(rs.getString("titulo"));

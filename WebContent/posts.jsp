@@ -10,7 +10,7 @@
 			</c:forEach>
 		</table>
 
-		<form action = "adicionaPost" method = "POST">
+		<form action = "adicionaPost" method = "POST" id = "post">
 			<h1>Novo Post</h1> <br />
 
 			<label for = "titulo">Título: </label>
@@ -20,9 +20,16 @@
 			<textarea name = "conteudo" placeholder = "Conteúdo do post" required ></textarea> <br /> <br />
 
 			<label for = "tags">Tags: </label>
-			<input type = "text" name = "tags" placeholder = "Insira as tags" required /> <br /> <br />
+			<select name = "tags" required>
+				<c:forEach var = "categoria" items = "${cdao.lista}">
+					<option value = "${categoria.nome}">${categoria.nome}</option>
+				</c:forEach>
+			</select>
 
 			<button type = "submit">Postar</button>
 		</form>
+
+		<script src = "jQuery.js"></script>
+		<script src = "custom.js"></script>
 	</body>
 </html>

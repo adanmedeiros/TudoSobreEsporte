@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+import javax.servlet.jsp.PageContext;
 
 import br.com.caelum.tudosobreesporte.factory.ConnectionFactory;
 import br.com.caelum.tudosobreesporte.model.Categoria;
@@ -39,7 +39,17 @@ public class CategoriaDao {
 
 	public void remove (String nome) {
 		try {
-			PreparedStatement stmt = connection.prepareStatement ("delete from categorias where categoria=?");
+			PreparedStatement stmt = connection.prepareStatement("select * from posts where tags=?");
+
+			stmt.setString(1, nome);
+			
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				return;
+			}
+
+			stmt = connection.prepareStatement ("delete from categorias where categoria=?");
 
 			stmt.setString (1, nome);
 

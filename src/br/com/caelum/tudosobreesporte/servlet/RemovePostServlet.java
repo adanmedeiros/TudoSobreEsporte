@@ -22,11 +22,8 @@ public class RemovePostServlet extends HttpServlet {
 
 		int id = Integer.parseInt(req.getParameter("id"));
 
-		Post post = new Post();
-		post.setId(id);
-
 		PostDao dao = new PostDao(connection);
-		dao.remove(post.getId());
+		dao.remove(id);
 
 		RequestDispatcher rd = req.getRequestDispatcher("/posts.jsp");
 		rd.forward(req, resp);

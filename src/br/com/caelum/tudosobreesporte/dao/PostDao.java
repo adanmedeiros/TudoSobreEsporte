@@ -1,7 +1,6 @@
 package br.com.caelum.tudosobreesporte.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +29,7 @@ public class PostDao {
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setTimestamp(1, new Timestamp(Calendar.getInstance().getTimeInMillis()));
+			stmt.setTimestamp(1, new Timestamp(post.getData().getTimeInMillis()));
 			stmt.setString(2, post.getTitulo());
 			stmt.setString(3, post.getConteudo());
 			stmt.setString(4, post.getTags());
@@ -59,17 +58,13 @@ public class PostDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Post post = new Post();
+				Post post = new Post(rs.getString("titulo"), rs.getString("conteudo"), rs.getString("tags"));
 
 				post.setId(rs.getInt("id"));
 
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getTimestamp("data_hora"));
 				post.setData(data);
-
-				post.setTitulo(rs.getString("titulo"));
-				post.setConteudo(rs.getString("conteudo"));
-				post.setTags(rs.getString("tags"));
 
 				posts.add(post);
 			}
@@ -91,17 +86,13 @@ public class PostDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Post post = new Post();
+				Post post = new Post(rs.getString("titulo"), rs.getString("conteudo"), rs.getString("tags"));
 
 				post.setId(rs.getInt("id"));
 
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getTimestamp("data_hora"));
 				post.setData(data);
-
-				post.setTitulo(rs.getString("titulo"));
-				post.setConteudo(rs.getString("conteudo"));
-				post.setTags(rs.getString("tags"));
 
 				posts.add(post);
 			}
@@ -123,17 +114,13 @@ public class PostDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Post post = new Post();
+				Post post = new Post(rs.getString("titulo"), rs.getString("conteudo"), rs.getString("tags"));
 
 				post.setId(rs.getInt("id"));
 
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getTimestamp("data_hora"));
 				post.setData(data);
-
-				post.setTitulo(rs.getString("titulo"));
-				post.setConteudo(rs.getString("conteudo"));
-				post.setTags(rs.getString("tags"));
 
 				posts.add(post);
 			}

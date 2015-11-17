@@ -5,23 +5,11 @@ import br.com.caelum.tudosobreesporte.model.Post;
 
 public class InsereTest {
 	public static void main(String[] args) {
-		Post post = new Post();
+		Post post = new Post("Titulo", "Conteudo", "Tag");
 
-		post.setTitulo("Titulo");
-		post.setConteudo("Conteudo");
-		post.setTags("Tag");
+		Post post2 = new Post("Titulo2", "Conteudo2", "Tag2");
 
-		Post post2 = new Post();
-
-		post2.setTitulo("Titulo2");
-		post2.setConteudo("Conteudo2");
-		post2.setTags("Tag2");
-
-		Post post3 = new Post();
-
-		post3.setTitulo("Titulo3");
-		post3.setConteudo("Conteudo3");
-		post3.setTags("Tag3");
+		Post post3 = new Post("Titulo3", "Conteudo3", "Tag3");
 
 		PostDao dao = new PostDao();
 

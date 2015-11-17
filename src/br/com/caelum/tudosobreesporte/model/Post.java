@@ -4,10 +4,18 @@ import java.util.Calendar;
 
 public class Post {
 	private int id;
-	private Calendar data;
+	private Calendar data = Calendar.getInstance();
 	private String titulo;
 	private String conteudo;
 	private String tags;
+
+
+	public Post(String titulo, String conteudo, String tags) {
+		super();
+		this.titulo = titulo;
+		this.conteudo = conteudo;
+		this.tags = tags;
+	}
 
 	public int getId() {
 		return id;

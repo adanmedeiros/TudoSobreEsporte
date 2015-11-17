@@ -7,16 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.jsp.PageContext;
-
 import br.com.caelum.tudosobreesporte.factory.ConnectionFactory;
 import br.com.caelum.tudosobreesporte.model.Categoria;
-import br.com.caelum.tudosobreesporte.model.Post;
 
 public class CategoriaDao {
 	private Connection connection;
 
-	public CategoriaDao(Connection connection) {
+	public CategoriaDao (Connection connection) {
 		this.connection = connection;
 	}
 
@@ -39,9 +36,7 @@ public class CategoriaDao {
 
 	public void remove (String nome) {
 		try {
-			PreparedStatement stmt = connection.prepareStatement("select * from posts where tags=?");
-
-			stmt.setString(1, nome);
+			PreparedStatement stmt = connection.prepareStatement("select * from posts where tags = " + nome);
 			
 			ResultSet rs = stmt.executeQuery();
 
@@ -49,9 +44,7 @@ public class CategoriaDao {
 				return;
 			}
 
-			stmt = connection.prepareStatement ("delete from categorias where categoria=?");
-
-			stmt.setString (1, nome);
+			stmt = connection.prepareStatement ("delete from categorias where categoria = " + nome);
 
 			stmt.execute();
 			stmt.close();
@@ -70,7 +63,7 @@ public class CategoriaDao {
 			while (rs.next()) {
 				Categoria categoria = new Categoria();
 
-				categoria.setNome (rs.getString ("categoria"));
+				categoria.setNome (rs.getString("categoria"));
 
 				categorias.add (categoria);
 			}

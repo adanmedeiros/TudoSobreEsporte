@@ -3,25 +3,23 @@ package br.com.caelum.tudosobreesporte.model;
 import java.util.Calendar;
 
 public class Post {
-	private int id;
-	private Calendar data = Calendar.getInstance();
+	private Integer id;
 	private String titulo;
 	private String conteudo;
-	private String tags;
+	private Categoria categoria;
+	private Calendar data = Calendar.getInstance();
 
-
-	public Post(String titulo, String conteudo, String tags) {
-		super();
+	public Post(String titulo, String conteudo, Categoria categoria) {
 		this.titulo = titulo;
 		this.conteudo = conteudo;
-		this.tags = tags;
+		this.setCategoria (categoria);
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId (Integer id) {
 		this.id = id;
 	}
 
@@ -29,7 +27,7 @@ public class Post {
 		return data;
 	}
 
-	public void setData(Calendar data) {
+	public void setData (Calendar data) {
 		this.data = data;
 	}
 
@@ -37,7 +35,7 @@ public class Post {
 		return titulo;
 	}
 
-	public void setTitulo(String titulo) {
+	public void setTitulo (String titulo) {
 		this.titulo = titulo;
 	}
 
@@ -45,15 +43,15 @@ public class Post {
 		return conteudo;
 	}
 
-	public void setConteudo(String conteudo) {
+	public void setConteudo (String conteudo) {
 		this.conteudo = conteudo;
 	}
 
-	public String getTags() {
-		return tags;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
+	public void setCategoria (Categoria categoria) {
+		this.categoria = categoria;
+	}	
 }

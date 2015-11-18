@@ -4,6 +4,12 @@ public class Categoria {
 	private Integer id;
 	private String nome;
 
+	// Construtor!
+	public Categoria (String nome) {
+		this.nome = nome;
+	}
+
+	// Getters & Setters!
 	public Integer getId() {
 		return id;
 	}

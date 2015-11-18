@@ -13,6 +13,7 @@ import br.com.caelum.tudosobreesporte.model.Categoria;
 public class CategoriaDao {
 	private Connection connection;
 
+	// Construtores!
 	public CategoriaDao (Connection connection) {
 		this.connection = connection;
 	}
@@ -21,38 +22,68 @@ public class CategoriaDao {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public void adiciona (Categoria categoria) {
-		String sql = "insert into categorias " + "(categoria)" + " values (?)";
-
+	// Método para adicionar a categoria ao banco de dados!
+	public boolean adiciona (Categoria categoria) {
+		// Verifica se a categoria existe, se existir, não faz nada e retorna falso.
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
-
+			PreparedStatement stmt = this.connection.prepareStatement ("select * from categorias where nome = ?");
 			stmt.setString (1, categoria.getNome());
-			stmt.execute();
-		} catch (SQLException e) {
-			throw new RuntimeException (e);
-		}
-	}
 
-	public void remove (String nome) {
-		try {
-			PreparedStatement stmt = connection.prepareStatement("select * from posts where tags = " + nome);
-			
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				return;
+				rs.close();
+				stmt.close();
+
+				return false;
+			} else {
+				// Se a categoria não existir , ela é criada e adicionada ao banco de dados.
+				String sql = "insert into categorias " + "(nome)" + " values (?)";
+	
+				stmt = this.connection.prepareStatement (sql);
+	
+				stmt.setString (1, categoria.getNome());
+	
+				stmt.execute();
+				stmt.close();
+	
+				return true;
 			}
-
-			stmt = connection.prepareStatement ("delete from categorias where categoria = " + nome);
-
-			stmt.execute();
-			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException (e);
 		}
 	}
 
+	// Método para remoção da categoria do banco de dados!
+	public boolean remove (Integer id) {
+		// Verifica se possui algum post atrelado, se existir, não faz nada e retorna falso.
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement ("select * from posts where categoria = ?");
+			stmt.setInt (1, id);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				rs.close();
+				stmt.close();
+
+				return false;
+			} else {
+				// Se não possui post atrelado e a categoria existir, ela é removida do banco de dados.
+				stmt = this.connection.prepareStatement ("delete * from categorias where id = ?");
+				stmt.setInt(1, id);
+	
+				stmt.execute();
+				stmt.close();
+	
+				return true;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException (e);
+		}
+	}
+
+	// Método para listar todas as categorias do banco de dados!
 	public List<Categoria> getLista() {
 		try {
 			List<Categoria> categorias = new ArrayList<Categoria>();
@@ -61,9 +92,9 @@ public class CategoriaDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Categoria categoria = new Categoria();
+				Categoria categoria = new Categoria (rs.getString("nome"));
 
-				categoria.setNome (rs.getString("categoria"));
+				categoria.setId (rs.getInt("id"));
 
 				categorias.add (categoria);
 			}

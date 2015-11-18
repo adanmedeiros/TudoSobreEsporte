@@ -9,12 +9,14 @@ public class Post {
 	private Categoria categoria;
 	private Calendar data = Calendar.getInstance();
 
-	public Post(String titulo, String conteudo, Categoria categoria) {
+	// Construtor!
+	public Post (String titulo, String conteudo, Categoria categoria) {
 		this.titulo = titulo;
 		this.conteudo = conteudo;
 		this.setCategoria (categoria);
 	}
 
+	// Getters & Setters!
 	public Integer getId() {
 		return id;
 	}

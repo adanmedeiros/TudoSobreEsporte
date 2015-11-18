@@ -16,6 +16,7 @@ import br.com.caelum.tudosobreesporte.model.Post;
 public class PostDao {
 	private Connection connection;
 
+	// Construtores!
 	public PostDao (Connection connection) {
 		this.connection = connection;
 	}
@@ -24,51 +25,86 @@ public class PostDao {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public void adiciona (Post post) {
-		String sql = "insert into posts " + "(data_hora, titulo, conteudo, categoria)" + " values (?, ?, ?, ?)";
-
+	// Método para adicionar o post ao banco de dados!
+	public boolean adiciona (Post post) {
+		// Verifica se o post existe, se existir, não faz nada e retorna falso.
 		try {
-			PreparedStatement stmt = connection.prepareStatement (sql);
+			PreparedStatement stmt = this.connection.prepareStatement ("select * from posts where titulo = ?");
+			stmt.setString (1, post.getTitulo());
 
-			stmt.setTimestamp (1, new Timestamp(post.getData().getTimeInMillis()));
-			stmt.setString (2, post.getTitulo());
-			stmt.setString (3, post.getConteudo());
-			stmt.setObject (4, post.getCategoria());
+			ResultSet rs = stmt.executeQuery();
 
-			stmt.execute();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+			if (rs.next()) {
+				rs.close();
+				stmt.close();
 
-	public void remove (Integer id) {
-		try {
-			PreparedStatement stmt = connection.prepareStatement ("delete from posts where id = " + id);
+				return false;
+			} else {
+				// Se o post não existir , ele é criado e adicionado ao banco de dados.
+				String sql = "insert into posts " + "(data_hora, titulo, conteudo, categoria)" + " values (?, ?, ?, ?)";
 
-			stmt.execute();
-			stmt.close();
+				stmt = this.connection.prepareStatement (sql);
+
+				stmt.setTimestamp (1, new Timestamp(post.getData().getTimeInMillis()));
+				stmt.setString (2, post.getTitulo());
+				stmt.setString (3, post.getConteudo());
+				stmt.setInt (4, post.getCategoria().getId());
+	
+				stmt.execute();
+				stmt.close();
+	
+				return true;
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException (e);
 		}
 	}
 
+	// Método para remoção do post do banco de dados!
+	public boolean remove (Integer id) {
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement ("delete * from posts where id = ?");
+			stmt.setInt (1, id);
+
+			stmt.execute();
+			stmt.close();
+
+			return true;
+		} catch (SQLException e) {
+			throw new RuntimeException (e);
+		}
+	}
+
+	// Método para recuperar a lista de todos os posts do banco de dados!
 	public List<Post> getLista() {
 		try {
 			List<Post> posts = new ArrayList<Post>();
 
-			PreparedStatement stmt = this.connection.prepareStatement("select * from posts");
+			PreparedStatement stmt = this.connection.prepareStatement ("select * from posts");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Post post = new Post (rs.getString("titulo"), rs.getString("conteudo"), (Categoria) rs.getObject("categoria"));
+				PreparedStatement auxStmt = this.connection.prepareStatement ("select * from categorias where id = ?");
+				auxStmt.setInt (1, rs.getInt("categoria"));
 
-				post.setId (rs.getInt("id"));
+				ResultSet auxRs = auxStmt.executeQuery();
 
-				Calendar data = Calendar.getInstance();
-				data.setTime (rs.getTimestamp("data_hora"));
-				post.setData (data);
+				if (auxRs.next()) {
+					Categoria categoria = new Categoria (auxRs.getString("nome"));
+	
+					Post post = new Post (rs.getString("titulo"), rs.getString("conteudo"), categoria);
+	
+					post.setId (rs.getInt("id"));
+	
+					Calendar data = Calendar.getInstance();
+					data.setTime (rs.getTimestamp("data_hora"));
+					post.setData (data);
+	
+					posts.add (post);
+				}
 
-				posts.add (post);
+				auxRs.close();
+				auxStmt.close();
 			}
 
 			rs.close();
@@ -83,55 +119,80 @@ public class PostDao {
 	public List<Post> getListaFiltrada (String filtro) {
 		try {
 			List<Post> posts = new ArrayList<Post>();
-			PreparedStatement stmt = this.connection.prepareStatement ("select * from posts where categoria like ?");
-			stmt.setString(1, "%" + filtro + "%");
 
-			ResultSet rs = stmt.executeQuery();
+			PreparedStatement auxStmt = this.connection.prepareStatement ("select * from categorias where nome = ?");
+			auxStmt.setString (1, filtro);
 
-			while (rs.next()) {
-				Post post = new Post (rs.getString("titulo"), rs.getString("conteudo"), (Categoria) rs.getObject("categoria"));
+			ResultSet auxRs = auxStmt.executeQuery();
 
-				post.setId (rs.getInt("id"));
+			if (auxRs.next()) {
+				PreparedStatement stmt = this.connection.prepareStatement ("select * from posts where categoria = ?");
+				stmt.setInt (1, auxRs.getInt("id"));
 
-				Calendar data = Calendar.getInstance();
-				data.setTime (rs.getTimestamp("data_hora"));
-				post.setData (data);
+				ResultSet rs = stmt.executeQuery();
 
-				posts.add (post);
+				while (rs.next()) {
+					Categoria categoria = new Categoria (auxRs.getString("nome"));
+	
+					Post post = new Post (rs.getString("titulo"), rs.getString("conteudo"), categoria);
+	
+					post.setId (rs.getInt("id"));
+	
+					Calendar data = Calendar.getInstance();
+					data.setTime (rs.getTimestamp("data_hora"));
+					post.setData (data);
+	
+					posts.add (post);
+				}
+
+				rs.close();
+				stmt.close();
 			}
 
-			rs.close();
-			stmt.close();
+			auxRs.close();
+			auxStmt.close();
 
 			return posts;
 		} catch (SQLException e) {
-			throw new RuntimeException (e);
+			throw new RuntimeException(e);
 		}
 	}
 
-	public List<Post> getPost (Integer id) {
+	public Post getPost (Integer id) {
 		try {
-			List<Post> posts = new ArrayList<Post>();
-			PreparedStatement stmt = this.connection.prepareStatement ("select from posts where id = " + id);
+			PreparedStatement stmt = this.connection.prepareStatement ("select * from posts where id = ?");
+			stmt.setInt (1, id);
 
 			ResultSet rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				Post post = new Post (rs.getString("titulo"), rs.getString("conteudo"), (Categoria) rs.getObject("categoria"));
+			if (rs.next()) {
+				PreparedStatement auxStmt = this.connection.prepareStatement ("select * from categorias where id = ?");
+				auxStmt.setInt(1, rs.getInt("categoria"));
 
-				post.setId (rs.getInt("id"));
+				ResultSet auxRs = auxStmt.executeQuery();
 
-				Calendar data = Calendar.getInstance();
-				data.setTime (rs.getTimestamp("data_hora"));
-				post.setData (data);
+				if (auxRs.next()) {
+					Categoria categoria = new Categoria (auxRs.getString("nome"));
 
-				posts.add (post);
+					Post post = new Post (rs.getString("titulo"), rs.getString("conteudo"), categoria);
+
+					post.setId (rs.getInt("id"));
+
+					Calendar data = Calendar.getInstance();
+					data.setTime (rs.getTimestamp("data_hora"));
+					post.setData (data);
+
+					auxRs.close();
+					auxStmt.close();
+
+					rs.close();
+					stmt.close();
+
+					return post;
+				}
 			}
 
-			rs.close();
-			stmt.close();
-
-			return posts;		
+			return null;
 		} catch (SQLException e) {
 			throw new RuntimeException (e);
 		}

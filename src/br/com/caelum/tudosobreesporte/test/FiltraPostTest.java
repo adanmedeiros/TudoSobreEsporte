@@ -1,30 +1,37 @@
 package br.com.caelum.tudosobreesporte.test;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import br.com.caelum.tudosobreesporte.dao.PostDao;
+import br.com.caelum.tudosobreesporte.factory.ConnectionFactory;
 import br.com.caelum.tudosobreesporte.model.Post;
 
 public class FiltraPostTest {
-	public static void main (String[] args) {
-		PostDao postDao = new PostDao();
+	public static void main(String[] args) throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
 
-		List<Post> posts = postDao.getListaFiltrada ("Futebol");
+		PostDao postDao = new PostDao(connection);
 
-		if (posts.size() > 0) {
-			for (Post post : posts) {
-				SimpleDateFormat sdf = new SimpleDateFormat ("dd/MM/yyyy HH:mm");
-				String dataFormatada = sdf.format (post.getData().getTime());
+		List<Post> posts = postDao.getListaFiltrada("Futebol");
+
+		if(posts.size() > 0) {
+			for(Post post : posts) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				String dataFormatada = sdf.format(post.getData().getTime());
 	
-				System.out.println ("ID: " + post.getId());
-				System.out.println ("Data: " + dataFormatada);
-				System.out.println ("Titulo: " + post.getTitulo());
-				System.out.println ("Conteudo: " + post.getConteudo());
-				System.out.println ("Categoria: " + post.getCategoria().getNome() + "\n");
+				System.out.println("ID: " + post.getId());
+				System.out.println("Data: " + dataFormatada);
+				System.out.println("Titulo: " + post.getTitulo());
+				System.out.println("Conteudo: " + post.getConteudo());
+				System.out.println("Categoria: " + post.getCategoria().getNome() + "\n");
 			}
 		} else {
-			System.out.println ("Não há nenhum post nessa categoria!");
+			System.out.println("Não há nenhum post nessa categoria!");
 		}
+
+		connection.close();
 	}
 }

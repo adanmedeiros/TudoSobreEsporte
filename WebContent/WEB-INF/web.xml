@@ -15,4 +15,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
+  <filter-mapping>
+    <filter-name>connection</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>categorias</filter-name>
+    <url-pattern>/*</url-pattern>    
+  </filter-mapping>
 </web-app>

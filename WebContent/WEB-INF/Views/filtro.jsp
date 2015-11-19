@@ -1,7 +1,6 @@
 <%@ include file = "header.jsp" %>
 		<ol class = "container">
-			<jsp:useBean id = "pdao" class = "br.com.caelum.tudosobreesporte.dao.PostDao" />
-			<c:forEach var = "post" items = "${pdao.getListaFiltrada(param.tags)}" >
+			<c:forEach var = "post" items = "${listaFiltrada}" >
 				<li>
 					<article>
 						<p><fmt:formatDate value = "${post.data.time}" pattern = "dd/MM/yyyy HH:mm"/></p>

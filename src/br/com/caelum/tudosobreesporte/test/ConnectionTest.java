@@ -6,13 +6,11 @@ import java.sql.SQLException;
 import br.com.caelum.tudosobreesporte.factory.ConnectionFactory;
 
 public class ConnectionTest {
-	public static void main (String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException {
 		Connection connection = new ConnectionFactory().getConnection();
-
-		System.out.println ("Conexão aberta!");
+		System.out.println("Conexão aberta!");
 
 		connection.close();
-
-		System.out.println ("Conexão fechada!");
+		System.out.println("Conexão fechada!");
 	}
 }

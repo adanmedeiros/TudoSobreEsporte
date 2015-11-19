@@ -8,17 +8,17 @@ public class ConnectionFactory {
 	
 	static {
 		try {
-			Class.forName ("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException (e);
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch(ClassNotFoundException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	
 	public Connection getConnection() {
 		try {
-			return DriverManager.getConnection ("jdbc:mysql://localhost:25565/tudoSobreEsporte", "root", "");
-		} catch (SQLException e) {
-			throw new RuntimeException (e);
+			return DriverManager.getConnection("jdbc:mysql://localhost:25565/tudoSobreEsporte", "root", "");
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }

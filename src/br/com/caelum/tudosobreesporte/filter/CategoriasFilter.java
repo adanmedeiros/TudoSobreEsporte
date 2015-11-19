@@ -2,7 +2,7 @@ package br.com.caelum.tudosobreesporte.filter;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,10 +12,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-import br.com.caelum.tudosobreesporte.factory.ConnectionFactory;
+import br.com.caelum.tudosobreesporte.dao.CategoriaDao;
+import br.com.caelum.tudosobreesporte.model.Categoria;
 
-@WebFilter(filterName = "connection")
-public class ConnectionFilter implements Filter {
+@WebFilter(filterName = "categorias")
+public class CategoriasFilter implements Filter {
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 	}
@@ -26,16 +27,13 @@ public class ConnectionFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		try {
-			Connection connection = new ConnectionFactory().getConnection();
+		Connection connection = (Connection) request.getAttribute("connection");
 
-			request.setAttribute("connection", connection);
+		CategoriaDao categoriaDao = new CategoriaDao(connection);
+		List<Categoria> categorias = categoriaDao.getLista();
 
-			chain.doFilter(request, response);
+		request.setAttribute("categorias", categorias);
 
-			connection.close();
-		} catch(SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}	
+		chain.doFilter(request, response);
+	}
 }

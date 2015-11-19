@@ -4,17 +4,17 @@ public class Categoria {
 	private Integer id;
 	private String nome;
 
-	// Construtor!
-	public Categoria (String nome) {
+	// Construtor.
+	public Categoria(String nome) {
 		this.nome = nome;
 	}
 
-	// Getters & Setters!
+	// Getters & Setters.
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId (Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -22,7 +22,7 @@ public class Categoria {
 		return nome;
 	}
 
-	public void setNome (String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 }

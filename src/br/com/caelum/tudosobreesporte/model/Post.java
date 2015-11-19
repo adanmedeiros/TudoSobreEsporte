@@ -9,19 +9,19 @@ public class Post {
 	private Categoria categoria;
 	private Calendar data = Calendar.getInstance();
 
-	// Construtor!
-	public Post (String titulo, String conteudo, Categoria categoria) {
+	// Construtor.
+	public Post(String titulo, String conteudo, Categoria categoria) {
 		this.titulo = titulo;
 		this.conteudo = conteudo;
-		this.setCategoria (categoria);
+		this.setCategoria(categoria);
 	}
 
-	// Getters & Setters!
+	// Getters & Setters.
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId (Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -29,7 +29,7 @@ public class Post {
 		return data;
 	}
 
-	public void setData (Calendar data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 
@@ -37,7 +37,7 @@ public class Post {
 		return titulo;
 	}
 
-	public void setTitulo (String titulo) {
+	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
@@ -45,7 +45,7 @@ public class Post {
 		return conteudo;
 	}
 
-	public void setConteudo (String conteudo) {
+	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
 	}
 
@@ -53,7 +53,7 @@ public class Post {
 		return categoria;
 	}
 
-	public void setCategoria (Categoria categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}	
 }
